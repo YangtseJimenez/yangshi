@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Don Pollo</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --red: #d81f26;
@@ -66,10 +67,42 @@
             font-size: 0.95rem;
         }
 
-        .nav-links .btn-nav {
-            background: var(--red);
-            padding: 12px 20px;
+        .nav-links a.nav-link-btn {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
             border-radius: 999px;
+            padding: 10px 14px;
+        }
+
+        .cart-button {
+            background: var(--red);
+            color: white;
+            border: none;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-badge {
+            background: var(--yellow);
+            color: #111;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 900;
+            position: absolute;
+            top: -8px;
+            right: -6px;
+            border: 2px solid #111;
         }
 
         .hero {
@@ -527,11 +560,13 @@
         <div class="container nav">
             <div class="logo">DON POLLO</div>
             <nav class="nav-links">
-                <a href="#">Inicio</a>
-                <a href="#">Menú</a>
-                <a href="#">Promociones</a>
-                <a href="#">Locales</a>
-                <a href="#" class="btn-nav">Pedir ahora</a>
+                <a href="index.html" class="nav-link-btn">Inicio</a>
+                <a href="menu.html" class="nav-link-btn">Menú</a>
+                <a href="login.html" class="nav-link-btn">Iniciar sesión</a>
+                <button class="cart-button" type="button">
+                    🛒 Carrito
+                    <span class="cart-badge">2</span>
+                </button>
             </nav>
         </div>
     </header>
@@ -542,8 +577,8 @@
                 <h1>La mejor <span>hamburguesa</span> está aquí.</h1>
                 <p>Disfruta de jugosas hamburguesas, papas crujientes y promociones irresistibles hechas para cada antojo.</p>
                 <div class="hero-actions">
-                    <a href="#" class="btn btn-primary">Ver menú</a>
-                    <a href="#" class="btn btn-secondary">Ver promociones</a>
+                    <a href="menu.html" class="btn btn-primary">Ver menú</a>
+                    <a href="login.html" class="btn btn-secondary">Iniciar sesión</a>
                 </div>
             </div>
 
@@ -704,8 +739,51 @@
         </div>
     </section>
 
+    <section class="section container" style="padding-top: 20px;">
+        <div style="background: #fffaf2; border: 1px solid #f4d98d; border-radius: 20px; padding: 24px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+            <div>
+                <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #8f6a00;">Supabase</div>
+                <h3 style="margin: 8px 0 0; font-size: 1.6rem;">Estado de conexión</h3>
+            </div>
+            <div style="text-align: right;">
+                <div id="supabase-status" style="font-weight: 900; color: #b10d17; font-size: 1.2rem;">Verificando...</div>
+                <div id="supabase-status-text" style="color: #444; margin-top: 4px;">Conectando con el proyecto.</div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">© 2026 Don Pollo • Todos los derechos reservados</div>
     </footer>
+
+    <script>
+        const SUPABASE_URL = "https://rqhdhaxynisxspdbfavr.supabase.co";
+        const SUPABASE_ANON_KEY = "TU_ANON_KEY_AQUI";
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function testSupabaseConnection() {
+            const statusEl = document.getElementById("supabase-status");
+            const textEl = document.getElementById("supabase-status-text");
+
+            try {
+                const { data, error } = await supabase.from("menu").select("id").limit(1);
+
+                if (error) {
+                    throw error;
+                }
+
+                statusEl.textContent = "Conectado";
+                statusEl.style.color = "#0f9d58";
+                textEl.textContent = data && data.length ? "La conexión con Supabase funciona correctamente." : "La conexión funciona, pero la tabla aún está vacía.";
+            } catch (error) {
+                statusEl.textContent = "Sin conexión";
+                statusEl.style.color = "#b10d17";
+                textEl.textContent = "Falta la clave anónima de Supabase o la tabla no existe aún.";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", testSupabaseConnection);
+    </script>
 </body>
 </html>

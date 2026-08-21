@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Don Pollo | Menú</title>
+    <style>
+      :root {
+        --bg: #fffaf2;
+        --panel: #ffffff;
+        --panel-soft: #fff1ce;
+        --primary: #d72638;
+        --primary-dark: #a91527;
+        --accent: #f7c948;
+        --accent-dark: #d9a824;
+        --text: #161616;
+        --muted: #5f5f5f;
+        --line: #f0e6d1;
+        --success: #1ea76d;
+        --shadow: 0 18px 38px rgba(22, 22, 22, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(180deg, #fff8e7 0%, var(--bg) 100%);
+        color: var(--text);
+      }
+
+      a { text-decoration: none; }
+      img { max-width: 100%; display: block; }
+
+      .container {
+        width: min(1200px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      header {
+        background: #111111;
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 0;
+        gap: 20px;
+      }
+
+      .brand {
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+        font-size: 1.5rem;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        color: white;
+        font-weight: 700;
+        opacity: 0.9;
+      }
+
+      .nav-links a.nav-link-btn {
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 999px;
+        padding: 10px 14px;
+      }
+
+      .cart-button {
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 999px;
+        padding: 12px 18px;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .cart-count {
+        background: var(--accent);
+        color: #111;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: 900;
+        position: absolute;
+        right: -6px;
+        top: -8px;
+        border: 2px solid #111;
+      }
+
+      .hero {
+        padding: 36px 0 24px;
+      }
+
+      .hero-panel {
+        background: linear-gradient(135deg, #ffe89e 0%, #ffd64f 100%);
+        border-radius: 30px;
+        padding: 34px 28px;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 18px;
+        align-items: center;
+        box-shadow: var(--shadow);
+      }
+
+      .hero h1 {
+        margin: 0 0 14px;
+        font-size: clamp(2.3rem, 5vw, 4rem);
+        line-height: 0.95;
+      }
+
+      .hero h1 span {
+        color: var(--primary);
+      }
+
+      .hero p {
+        margin: 0 0 20px;
+        color: #2f2f2f;
+        max-width: 560px;
+        font-size: 1.06rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        border: none;
+        border-radius: 999px;
+        padding: 14px 22px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .btn:hover { transform: translateY(-2px); }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+
+      .btn-secondary {
+        background: white;
+        color: var(--text);
+      }
+
+      .hero-image {
+        display: flex;
+        justify-content: center;
+      }
+
+      .hero-food {
+        width: min(100%, 340px);
+        border-radius: 26px;
+        overflow: hidden;
+        box-shadow: 0 18px 24px rgba(0,0,0,0.12);
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin: 32px 0 20px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: clamp(2rem, 3vw, 2.7rem);
+      }
+
+      .section-head span {
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(220px, 1fr));
+        gap: 24px;
+        margin-bottom: 48px;
+      }
+
+      .product-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 12px 24px rgba(0,0,0,0.04);
+      }
+
+      .product-image {
+        height: 210px;
+        overflow: hidden;
+      }
+
+      .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .product-body {
+        padding: 16px;
+      }
+
+      .product-tag {
+        display: inline-block;
+        background: var(--panel-soft);
+        color: #7d5a00;
+        font-weight: 800;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        padding: 6px 9px;
+        border-radius: 999px;
+        text-transform: uppercase;
+      }
+
+      .product-name {
+        margin: 12px 0 8px;
+        font-size: 1.35rem;
+      }
+
+      .product-desc {
+        margin: 0 0 16px;
+        color: var(--muted);
+        min-height: 52px;
+        line-height: 1.5;
+      }
+
+      .product-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .price {
+        font-size: 1.75rem;
+        font-weight: 900;
+        color: var(--text);
+      }
+
+      .add-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 999px;
+        padding: 10px 16px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .cart-wrap {
+        position: sticky;
+        top: 90px;
+      }
+
+      .cart-panel {
+        background: #121212;
+        color: white;
+        border-radius: 30px;
+        padding: 24px 20px;
+        box-shadow: var(--shadow);
+      }
+
+      .cart-panel h3 {
+        margin: 0 0 18px;
+        font-size: 1.8rem;
+      }
+
+      .cart-items {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 18px;
+        min-height: 80px;
+      }
+
+      .empty-cart {
+        color: #d7d7d7;
+        opacity: 0.8;
+      }
+
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        background: rgba(255,255,255,0.04);
+        border-radius: 14px;
+        padding: 10px 12px;
+      }
+
+      .cart-item strong {
+        display: block;
+        font-size: 0.98rem;
+      }
+
+      .cart-item small {
+        color: #d7d7d7;
+      }
+
+      .qty-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 24px;
+        height: 24px;
+        padding: 0 7px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #111;
+        font-weight: 900;
+      }
+
+      .cart-summary {
+        border-top: 1px solid rgba(255,255,255,0.12);
+        padding-top: 16px;
+      }
+
+      .total-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .total-row strong {
+        font-size: 1.2rem;
+      }
+
+      .checkout {
+        width: 100%;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 14px;
+        padding: 14px 16px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .menu-layout {
+        display: grid;
+        grid-template-columns: 1.7fr 0.9fr;
+        gap: 28px;
+        align-items: start;
+      }
+
+      .toast {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        background: rgba(17,17,17,0.95);
+        color: white;
+        border-radius: 12px;
+        padding: 12px 16px;
+        opacity: 0;
+        transform: translateY(12px);
+        transition: 0.25s ease;
+        pointer-events: none;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 980px) {
+        .menu-layout,
+        .hero-panel {
+          grid-template-columns: 1fr;
+        }
+
+        .menu-grid {
+          grid-template-columns: repeat(2, minmax(200px, 1fr));
+        }
+      }
+
+      @media (max-width: 620px) {
+        .menu-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .nav-links {
+          width: 100%;
+          justify-content: space-between;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">DON POLLO</div>
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link-btn">Inicio</a>
+          <a href="menu.html" class="nav-link-btn">Menú</a>
+          <a href="login.html" class="nav-link-btn">Iniciar sesión</a>
+          <button class="cart-button" id="cartButton" type="button">
+            🛒 Carrito
+            <span class="cart-count" id="cartCount">0</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero-panel">
+          <div>
+            <h1>La mejor comida <span>se sirve con hambre.</span></h1>
+            <p>
+              Sabor irresistible, ingredientes frescos y promociones pensadas para cada antojo.
+              Elige tus favoritos y arma tu pedido en segundos.
+            </p>
+            <div class="hero-actions">
+              <a href="menu.html" class="btn btn-primary">Ver menú</a>
+              <a href="login.html" class="btn btn-secondary">Iniciar sesión</a>
+            </div>
+          </div>
+          <div class="hero-image">
+            <img
+              class="hero-food"
+              src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80"
+              alt="Hamburguesa"
+            />
+          </div>
+        </div>
+      </section>
+
+      <div class="section-head">
+        <h2>Menú</h2>
+        <span>Delivery • Envío rápido • Calidad premium</span>
+      </div>
+
+      <div class="menu-layout">
+        <section class="menu-grid" id="menuGrid"></section>
+
+        <aside class="cart-wrap">
+          <div class="cart-panel">
+            <h3>Carrito</h3>
+            <div class="cart-items" id="cartItems">
+              <div class="empty-cart">Aún no agregas productos.</div>
+            </div>
+
+            <div class="cart-summary">
+              <div class="total-row">
+                <span>Cantidad</span>
+                <span id="itemQuantity">0</span>
+              </div>
+              <div class="total-row">
+                <span>Total</span>
+                <strong id="totalPrice">$0.00</strong>
+              </div>
+              <button class="checkout" id="checkoutBtn" type="button">Finalizar pedido</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <div class="toast" id="toast">Producto agregado</div>
+
+    <script>
+      const SUPABASE_URL = "https://rqhdhaxynisxspdbfavr.supabase.co";
+      const SUPABASE_ANON_KEY = "";
+
+      const fallbackProducts = [
+        {
+          id: 1,
+          name: "Whopper Clásica",
+          price: 14.5,
+          category: "Hamburguesas",
+          image: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=80",
+          description: "Doble carne, queso, lechuga y salsa especial."
+        },
+        {
+          id: 2,
+          name: "Combo King",
+          price: 19.99,
+          category: "Combos",
+          image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80",
+          description: "Hamburguesa, papas medianas y bebida cola."
+        },
+        {
+          id: 3,
+          name: "Papas Crujientes",
+          price: 6.5,
+          category: "Acompañamientos",
+          image: "https://images.unsplash.com/photo-1576106671465-31d4e4c8e5ef?auto=format&fit=crop&w=900&q=80",
+          description: "Crujientes al punto, perfectas para compartir."
+        },
+        {
+          id: 4,
+          name: "Pollo Crispy",
+          price: 12.75,
+          category: "Pollo",
+          image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=900&q=80",
+          description: "Pieza dorada, jugosa y con sabor irresistible."
+        },
+        {
+          id: 5,
+          name: "Bebida Cola",
+          price: 3.5,
+          category: "Bebidas",
+          image: "https://images.unsplash.com/photo-1622483767028-3f66f2b1d3ec?auto=format&fit=crop&w=900&q=80",
+          description: "Refrescante para acompañar cada pedido."
+        },
+        {
+          id: 6,
+          name: "Nuggets",
+          price: 8.25,
+          category: "Snacks",
+          image: "https://images.unsplash.com/photo-1512152272829-e3139592d56f?auto=format&fit=crop&w=900&q=80",
+          description: "Bites dorados con toque crujiente y jugoso."
+        },
+        {
+          id: 7,
+          name: "Chick Burger",
+          price: 13.25,
+          category: "Especiales",
+          image: "https://images.unsplash.com/photo-1520072959219-c595dc870360?auto=format&fit=crop&w=900&q=80",
+          description: "Pollo, aguacate y salsa teriyaki suave."
+        },
+        {
+          id: 8,
+          name: "Helado Milkshake",
+          price: 7.99,
+          category: "Postres",
+          image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=900&q=80",
+          description: "Batido cremoso con sabor a vainilla y chocolate."
+        }
+      ];
+
+      const menuGrid = document.getElementById("menuGrid");
+      const cartItems = document.getElementById("cartItems");
+      const cartCount = document.getElementById("cartCount");
+      const totalPrice = document.getElementById("totalPrice");
+      const itemQuantity = document.getElementById("itemQuantity");
+      const toast = document.getElementById("toast");
+      const checkoutBtn = document.getElementById("checkoutBtn");
+
+      let products = [...fallbackProducts];
+      let cart = JSON.parse(localStorage.getItem("donpollo-cart") || "[]");
+
+      async function loadProducts() {
+        if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+          renderProducts(fallbackProducts);
+          return;
+        }
+
+        try {
+          const response = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*`, {
+            headers: {
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+            }
+          });
+
+          if (!response.ok) throw new Error("No se pudo cargar desde Supabase");
+
+          const data = await response.json();
+          if (Array.isArray(data) && data.length > 0) {
+            products = data;
+            renderProducts(products);
+          } else {
+            renderProducts(fallbackProducts);
+          }
+        } catch (error) {
+          console.warn("Usando productos locales porque Supabase no está configurado.", error);
+          renderProducts(fallbackProducts);
+        }
+      }
+
+      function renderProducts(items) {
+        menuGrid.innerHTML = items.map((product) => `
+          <article class="product-card">
+            <div class="product-image">
+              <img src="${product.image}" alt="${product.name}" />
+            </div>
+            <div class="product-body">
+              <span class="product-tag">${product.category}</span>
+              <h3 class="product-name">${product.name}</h3>
+              <p class="product-desc">${product.description}</p>
+              <div class="product-row">
+                <span class="price">$${Number(product.price).toFixed(2)}</span>
+                <button class="add-btn" type="button" data-id="${product.id}">Agregar</button>
+              </div>
+            </div>
+          </article>
+        `).join("");
+
+        document.querySelectorAll(".add-btn").forEach((button) => {
+          button.addEventListener("click", () => addToCart(Number(button.dataset.id)));
+        });
+      }
+
+      function addToCart(productId) {
+        const existing = cart.find((item) => item.id === productId);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({ id: productId, quantity: 1 });
+        }
+
+        localStorage.setItem("donpollo-cart", JSON.stringify(cart));
+        renderCart();
+        showToast("Producto agregado");
+      }
+
+      function renderCart() {
+        if (!cart.length) {
+          cartItems.innerHTML = '<div class="empty-cart">Aún no agregas productos.</div>';
+          cartCount.textContent = "0";
+          totalPrice.textContent = "$0.00";
+          itemQuantity.textContent = "0";
+          return;
+        }
+
+        const detailedCart = cart.map((entry) => {
+          const product = products.find((item) => item.id === entry.id);
+          if (!product) return null;
+          return {
+            ...product,
+            quantity: entry.quantity,
+            total: product.price * entry.quantity
+          };
+        }).filter(Boolean);
+
+        const totalItems = detailedCart.reduce((sum, item) => sum + item.quantity, 0);
+        const total = detailedCart.reduce((sum, item) => sum + item.total, 0);
+
+        cartCount.textContent = totalItems;
+        itemQuantity.textContent = totalItems;
+        totalPrice.textContent = `$${total.toFixed(2)}`;
+
+        cartItems.innerHTML = detailedCart.map((item) => `
+          <div class="cart-item">
+            <div>
+              <strong>${item.name}</strong>
+              <small>$${Number(item.price).toFixed(2)} c/u</small>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span class="qty-badge">${item.quantity}</span>
+              <span style="font-weight:800;">$${item.total.toFixed(2)}</span>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(showToast.timeoutId);
+        showToast.timeoutId = setTimeout(() => toast.classList.remove("show"), 1200);
+      }
+
+      async function checkout() {
+        if (!cart.length) {
+          showToast("Tu carrito está vacío");
+          return;
+        }
+
+        const payload = {
+          items: cart,
+          total: Number(document.getElementById("totalPrice").textContent.replace(/[$,]/g, "")),
+          created_at: new Date().toISOString()
+        };
+
+        if (SUPABASE_URL && SUPABASE_ANON_KEY) {
+          try {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                apikey: SUPABASE_ANON_KEY,
+                Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+              },
+              body: JSON.stringify(payload)
+            });
+
+            if (!res.ok) throw new Error("No se pudo guardar la orden");
+            showToast("Pedido guardado correctamente");
+          } catch (error) {
+            console.warn("No se pudo guardar en Supabase, pero la compra se mantuvo localmente.", error);
+            showToast("Pedido listo localmente");
+          }
+        } else {
+          showToast("Pedido listo localmente");
+        }
+
+        cart = [];
+        localStorage.setItem("donpollo-cart", JSON.stringify(cart));
+        renderCart();
+      }
+
+      document.getElementById("cartButton").addEventListener("click", () => {
+        document.getElementById("cartItems").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+
+      checkoutBtn.addEventListener("click", checkout);
+
+      loadProducts();
+      renderCart();
+    </script>
+  </body>
+</html>
