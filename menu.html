@@ -327,6 +327,21 @@
         color: #d7d7d7;
       }
 
+      .remove-btn {
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 8px;
+        background: transparent;
+        color: #ffb6bd;
+        padding: 5px 8px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .remove-btn:hover {
+        background: var(--primary);
+        color: white;
+      }
+
       .qty-badge {
         display: inline-flex;
         align-items: center;
@@ -676,9 +691,21 @@
             <div style="display:flex; align-items:center; gap:10px;">
               <span class="qty-badge">${item.quantity}</span>
               <span style="font-weight:800;">$${item.total.toFixed(2)}</span>
+              <button class="remove-btn" type="button" data-remove-id="${item.id}" aria-label="Eliminar ${item.name}">Eliminar</button>
             </div>
           </div>
         `).join("");
+
+        document.querySelectorAll("[data-remove-id]").forEach((button) => {
+          button.addEventListener("click", () => removeFromCart(Number(button.dataset.removeId)));
+        });
+      }
+
+      function removeFromCart(productId) {
+        cart = cart.filter((item) => item.id !== productId);
+        localStorage.setItem("donpollo-cart", JSON.stringify(cart));
+        renderCart();
+        showToast("Producto eliminado");
       }
 
       function showToast(message) {
