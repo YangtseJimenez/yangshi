@@ -6,6 +6,29 @@ export default async function Home() {
   if (!supabase) {
     return (
       <main className="min-h-screen bg-[#fffaf2] text-[#111111]">
+        <header className="sticky top-0 z-20 border-b border-[#f4d98d] bg-[#111111]/95 backdrop-blur-sm">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+            <div className="text-xl font-black tracking-[0.12em] text-[#f7c948]">DON POLLO</div>
+            <div className="flex items-center gap-3">
+              <nav className="hidden items-center gap-6 text-sm font-semibold text-white md:flex">
+                <a href="#">Inicio</a>
+                <a href="#">Menú</a>
+                <a href="#">Promociones</a>
+              </nav>
+              <button
+                type="button"
+                className="relative inline-flex items-center gap-2 rounded-full bg-[#d72638] px-4 py-2 text-sm font-bold text-white shadow-lg shadow-red-900/20"
+              >
+                <span aria-hidden="true">🛒</span>
+                Carrito
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#f7c948] text-[10px] font-black text-[#111111]">
+                  2
+                </span>
+              </button>
+            </div>
+          </div>
+        </header>
+
         <div className="mx-auto max-w-4xl px-6 py-20">
           <div className="rounded-3xl border border-[#f4d98d] bg-white p-8 shadow-sm">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#b10d17]">
@@ -27,6 +50,29 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-[#fffaf2] text-[#111111]">
+      <header className="sticky top-0 z-20 border-b border-[#f4d98d] bg-[#111111]/95 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <div className="text-xl font-black tracking-[0.12em] text-[#f7c948]">DON POLLO</div>
+          <div className="flex items-center gap-3">
+            <nav className="hidden items-center gap-6 text-sm font-semibold text-white md:flex">
+              <a href="#">Inicio</a>
+              <a href="#">Menú</a>
+              <a href="#">Promociones</a>
+            </nav>
+            <button
+              type="button"
+              className="relative inline-flex items-center gap-2 rounded-full bg-[#d72638] px-4 py-2 text-sm font-bold text-white shadow-lg shadow-red-900/20"
+            >
+              <span aria-hidden="true">🛒</span>
+              Carrito
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#f7c948] text-[10px] font-black text-[#111111]">
+                2
+              </span>
+            </button>
+          </div>
+        </div>
+      </header>
+
       <div className="mx-auto max-w-5xl px-6 py-16">
         <div className="mb-10 rounded-3xl bg-[#111111] p-8 text-white shadow-lg">
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#f7c948]">
