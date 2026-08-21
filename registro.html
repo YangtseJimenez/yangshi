@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Don Pollo | Iniciar sesión</title>
+    <title>Don Pollo | Registro</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
       :root {
@@ -170,7 +170,7 @@
       }
 
       .form-box {
-        width: min(100%, 400px);
+        width: min(100%, 440px);
       }
 
       .form-box h2 {
@@ -231,57 +231,17 @@
         transform: translateY(-1px);
       }
 
-      .secondary-actions {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        margin: 16px 0 24px;
-        font-size: 0.9rem;
+      .login-line {
+        margin-top: 20px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.93rem;
       }
 
-      .secondary-actions a {
+      .login-line a {
         color: var(--primary);
-        font-weight: 700;
-        text-decoration: none;
-      }
-
-      .remember {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--muted);
-      }
-
-      .remember input {
-        accent-color: var(--primary);
-      }
-
-      .divider {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        color: var(--muted);
-        font-size: 0.8rem;
-        margin: 20px 0;
-      }
-
-      .divider::before,
-      .divider::after {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: var(--line);
-      }
-
-      .google-btn {
-        width: 100%;
-        border: 1px solid var(--line);
-        background: white;
-        border-radius: 14px;
-        height: 52px;
         font-weight: 800;
-        cursor: pointer;
+        text-decoration: none;
       }
 
       .status {
@@ -331,11 +291,11 @@
         <aside class="brand-panel">
           <div class="brand-top">
             <span class="brand-tag">Don Pollo</span>
-            <h1>Lo mejor <span>para tu hambre.</span></h1>
+            <h1>Únete y <span>disfruta más.</span></h1>
           </div>
 
           <p>
-            Inicia sesión para acceder a tus pedidos, promociones exclusivas y disfrutar de una experiencia más rápida y personalizada.
+            Crea tu cuenta para guardar tus pedidos, recibir promociones exclusivas y disfrutar de una experiencia más rápida.
           </p>
 
           <div class="brand-feature">
@@ -356,10 +316,15 @@
 
         <main class="form-panel">
           <div class="form-box">
-            <h2>Iniciar sesión</h2>
-            <p>Accede a tu cuenta para seguir tu pedido.</p>
+            <h2>Crear cuenta</h2>
+            <p>Regístrate para empezar a pedir.</p>
 
-            <form id="loginForm">
+            <form id="registerForm">
+              <div class="input-group">
+                <label for="nombre">Nombre completo</label>
+                <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required />
+              </div>
+
               <div class="input-group">
                 <label for="email">Correo electrónico</label>
                 <input id="email" name="email" type="email" placeholder="tucorreo@ejemplo.com" required />
@@ -370,23 +335,17 @@
                 <input id="password" name="password" type="password" placeholder="••••••••" required />
               </div>
 
-              <div class="secondary-actions">
-                <label class="remember">
-                  <input type="checkbox" />
-                  Recordarme
-                </label>
-                <a href="#">¿Olvidaste tu contraseña?</a>
+              <div class="input-group">
+                <label for="confirmPassword">Confirmar contraseña</label>
+                <input id="confirmPassword" name="confirmPassword" type="password" placeholder="••••••••" required />
               </div>
 
-              <button class="submit-btn" type="submit">Iniciar sesión</button>
-
-              <div class="login-line">
-                ¿No tienes cuenta? <a href="registro.html">Registrarse</a>
-              </div>
-
-              <div class="divider">o continúa con</div>
-              <button class="google-btn" type="button" id="googleBtn">Google</button>
+              <button class="submit-btn" type="submit">Registrarse</button>
             </form>
+
+            <div class="login-line">
+              ¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a>
+            </div>
 
             <div id="status" class="status" aria-live="polite"></div>
           </div>
@@ -398,9 +357,8 @@
       const SUPABASE_URL = "https://rqhdhaxynisxspdbfavr.supabase.co";
       const SUPABASE_ANON_KEY = "sb_publishable_bt3gDUOUZck2-YlyPUxntQ_7blm642d";
 
-      const form = document.getElementById("loginForm");
+      const form = document.getElementById("registerForm");
       const statusEl = document.getElementById("status");
-      const googleBtn = document.getElementById("googleBtn");
 
       function showStatus(message, type) {
         statusEl.textContent = message;
@@ -408,7 +366,7 @@
       }
 
       function getSupabaseClient() {
-        if (!SUPABASE_URL || !SUPABASE_ANON_KEY || SUPABASE_ANON_KEY.includes("TU_CLAVE")) {
+        if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
           return null;
         }
 
@@ -418,52 +376,57 @@
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
 
+        const nombre = document.getElementById("nombre").value.trim();
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value.trim();
+        const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+        if (!nombre || !email || !password) {
+          showStatus("Completa todos los campos.", "error");
+          return;
+        }
+
+        if (password.length < 6) {
+          showStatus("La contraseña debe tener al menos 6 caracteres.", "error");
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          showStatus("Las contraseñas no coinciden.", "error");
+          return;
+        }
 
         const supabase = getSupabaseClient();
 
         if (!supabase) {
-          showStatus("Falta la clave anónima de Supabase. Pégala en la constante SUPABASE_ANON_KEY.", "error");
+          showStatus("Falta la clave anónima de Supabase. Pégala en SUPABASE_ANON_KEY.", "error");
           return;
         }
 
-        showStatus("Iniciando sesión...", "success");
+        showStatus("Registrando usuario...", "success");
 
         try {
-          const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-          if (error) throw error;
-
-          showStatus("Sesión iniciada correctamente. Bienvenido.", "success");
-          console.log("Usuario autenticado:", data.user);
-          window.location.href = "menu.html";
-        } catch (error) {
-          showStatus(error.message || "No se pudo iniciar sesión.", "error");
-        }
-      });
-
-      googleBtn.addEventListener("click", async () => {
-        const supabase = getSupabaseClient();
-
-        if (!supabase) {
-          showStatus("Falta la clave anónima de Supabase. Pégala en la constante SUPABASE_ANON_KEY.", "error");
-          return;
-        }
-
-        showStatus("Redirigiendo a Google...", "success");
-
-        try {
-          const { error } = await supabase.auth.signInWithOAuth({
-            provider: "google",
+          const { data: authData, error: authError } = await supabase.auth.signUp({
+            email,
+            password,
             options: {
-              redirectTo: window.location.origin + "/menu.html"
+              data: {
+                full_name: nombre,
+              }
             }
           });
 
-          if (error) throw error;
+          if (authError) throw authError;
+
+          const message = authData.session
+            ? "Registro exitoso. Ya puedes iniciar sesión."
+            : "Cuenta creada. Revisa tu correo para confirmar la cuenta.";
+          showStatus(message, "success");
+          setTimeout(() => {
+            window.location.href = "login.html";
+          }, 1500);
         } catch (error) {
-          showStatus(error.message || "No se pudo iniciar con Google.", "error");
+          showStatus(error.message || "No se pudo registrar al usuario.", "error");
         }
       });
     </script>
