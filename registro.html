@@ -327,7 +327,7 @@
 
               <div class="input-group">
                 <label for="email">Correo electrónico</label>
-                <input id="email" name="email" type="email" placeholder="tucorreo@ejemplo.com" required />
+                <input id="email" name="email" type="text" placeholder="cliente@ejemplo.com" required />
               </div>
 
               <div class="input-group">
@@ -420,7 +420,7 @@
 
           const message = authData.session
             ? "Registro exitoso. Ya puedes iniciar sesión."
-            : "Cuenta creada. Revisa tu correo para confirmar la cuenta.";
+            : "Cuenta creada. Ya puedes iniciar sesión.";
           showStatus(message, "success");
           setTimeout(() => {
             window.location.href = "login.html";
