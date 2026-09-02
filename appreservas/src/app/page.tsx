@@ -15,16 +15,6 @@ export default async function Home() {
                 <a href="#">Menú</a>
                 <a href="#">Promociones</a>
               </nav>
-              <button
-                type="button"
-                className="relative inline-flex items-center gap-2 rounded-full bg-[#d72638] px-4 py-2 text-sm font-bold text-white shadow-lg shadow-red-900/20"
-              >
-                <span aria-hidden="true">🛒</span>
-                Carrito
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#f7c948] text-[10px] font-black text-[#111111]">
-                  2
-                </span>
-              </button>
             </div>
           </div>
         </header>
@@ -59,16 +49,6 @@ export default async function Home() {
               <a href="#">Menú</a>
               <a href="#">Promociones</a>
             </nav>
-            <button
-              type="button"
-              className="relative inline-flex items-center gap-2 rounded-full bg-[#d72638] px-4 py-2 text-sm font-bold text-white shadow-lg shadow-red-900/20"
-            >
-              <span aria-hidden="true">🛒</span>
-              Carrito
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#f7c948] text-[10px] font-black text-[#111111]">
-                2
-              </span>
-            </button>
           </div>
         </div>
       </header>
