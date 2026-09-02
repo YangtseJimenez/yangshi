@@ -4,7 +4,6 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Don Pollo | Finalizar pedido</title>
-		<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 		<style>
 			:root {
 				--black: #111111;
@@ -282,14 +281,6 @@
 		</main>
 
 		<script>
-			const SUPABASE_URL = "https://rqhdhaxynisxspdbfavr.supabase.co";
-			const SUPABASE_ANON_KEY = "sb_publishable_bt3gDUOUZck2-YlyPUxntQ_7blm642d";
-			const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-			supabase.auth.getSession().then(({ data: { session } }) => {
-				if (!session) window.location.replace("../login.html");
-			});
-
 			const cart = JSON.parse(localStorage.getItem("donpollo-cart") || "[]");
 			const products = {
 				1: { name: "Whopper Clásica", price: 14.5 },

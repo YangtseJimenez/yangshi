@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Don Pollo | Menú</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
       :root {
         --bg: #fffaf2;
@@ -513,7 +512,6 @@
     <script>
       const SUPABASE_URL = "https://rqhdhaxynisxspdbfavr.supabase.co";
       const SUPABASE_ANON_KEY = "sb_publishable_bt3gDUOUZck2-YlyPUxntQ_7blm642d";
-      const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
       const fallbackProducts = [
         {
@@ -592,15 +590,6 @@
 
       let products = [...fallbackProducts];
       let cart = JSON.parse(localStorage.getItem("donpollo-cart") || "[]");
-
-      async function requireSession() {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) {
-          window.location.replace("login.html");
-          return false;
-        }
-        return true;
-      }
 
       async function loadProducts() {
         if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
@@ -727,8 +716,6 @@
       }
 
       async function checkout() {
-        if (!(await requireSession())) return;
-
         if (!cart.length) {
           showToast("Tu carrito está vacío");
           return;
@@ -742,11 +729,8 @@
 
       checkoutBtn.addEventListener("click", checkout);
 
-      requireSession().then((authenticated) => {
-        if (!authenticated) return;
-        loadProducts();
-        renderCart();
-      });
+      loadProducts();
+      renderCart();
     </script>
   </body>
 </html>
