@@ -5,7 +5,7 @@ export default async function Home() {
 
   if (!supabase) {
     return (
-      <main className="min-h-screen bg-[#fffaf2] text-[#111111]">
+      <main className="min-h-screen bg-[#111111] text-white">
         <header className="sticky top-0 z-20 border-b border-[#f4d98d] bg-[#111111]/95 backdrop-blur-sm">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
             <div className="text-xl font-black tracking-[0.12em] text-[#f7c948]">DON POLLO</div>
@@ -20,7 +20,7 @@ export default async function Home() {
         </header>
 
         <div className="mx-auto max-w-4xl px-6 py-20">
-          <div className="rounded-3xl border border-[#f4d98d] bg-white p-8 shadow-sm">
+          <div className="rounded-3xl border border-[#f4d98d] bg-white p-8 text-[#111111] shadow-sm">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#b10d17]">
               Supabase pendiente
             </p>
@@ -39,7 +39,7 @@ export default async function Home() {
   const { data: notes, error } = await supabase.from("notes").select();
 
   return (
-    <main className="min-h-screen bg-[#fffaf2] text-[#111111]">
+    <main className="min-h-screen bg-[#111111] text-white">
       <header className="sticky top-0 z-20 border-b border-[#f4d98d] bg-[#111111]/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <div className="text-xl font-black tracking-[0.12em] text-[#f7c948]">DON POLLO</div>
@@ -66,7 +66,7 @@ export default async function Home() {
           </p>
         </div>
 
-        <section className="rounded-3xl border border-[#f4d98d] bg-white p-6 shadow-sm">
+        <section className="rounded-3xl border border-[#f4d98d] bg-white p-6 text-[#111111] shadow-sm">
           <h2 className="mb-5 text-2xl font-bold">Notas desde Supabase</h2>
 
           {error ? (

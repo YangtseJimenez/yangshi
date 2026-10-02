@@ -20,8 +20,8 @@
 			body {
 				margin: 0;
 				font-family: Arial, Helvetica, sans-serif;
-				color: var(--black);
-				background: linear-gradient(135deg, #fff4c9 0%, var(--cream) 55%, #ffffff 100%);
+				color: white;
+				background: #111111;
 			}
 
 			a { text-decoration: none; }
@@ -86,6 +86,7 @@
 
 			.panel {
 				background: rgba(255,255,255,0.94);
+				color: var(--black);
 				border: 1px solid var(--line);
 				border-radius: 24px;
 				padding: 26px;
@@ -274,7 +275,7 @@
 					<div id="summaryItems" class="summary-list"></div>
 					<div class="summary-total">
 						<span>Total</span>
-						<strong id="summaryTotal">$0.00</strong>
+						<strong id="summaryTotal">₡0</strong>
 					</div>
 				</aside>
 			</div>
@@ -282,6 +283,12 @@
 
 		<script>
 			const cart = JSON.parse(localStorage.getItem("donpollo-cart") || "[]");
+			const USD_TO_CRC = 450;
+			const formatCRC = (amountInUsd) => new Intl.NumberFormat("es-CR", {
+				style: "currency",
+				currency: "CRC",
+				maximumFractionDigits: 0
+			}).format(amountInUsd * USD_TO_CRC);
 			const products = {
 				1: { name: "Whopper Clásica", price: 14.5 },
 				2: { name: "Combo King", price: 19.99 },
@@ -317,10 +324,10 @@
 				summaryItems.innerHTML = items.map((item) => `
 					<div class="summary-item">
 						<span>${item.quantity} x ${item.name}</span>
-						<strong>$${(item.price * item.quantity).toFixed(2)}</strong>
+						<strong>${formatCRC(item.price * item.quantity)}</strong>
 					</div>
 				`).join("");
-				summaryTotal.textContent = `$${total.toFixed(2)}`;
+				summaryTotal.textContent = formatCRC(total);
 			}
 
 			function updatePaymentFields() {

@@ -6,15 +6,15 @@
     <title>Don Pollo | Menú</title>
     <style>
       :root {
-        --bg: #fffaf2;
+        --bg: #111111;
         --panel: #ffffff;
         --panel-soft: #fff1ce;
         --primary: #d72638;
         --primary-dark: #a91527;
         --accent: #f7c948;
         --accent-dark: #d9a824;
-        --text: #161616;
-        --muted: #5f5f5f;
+        --text: #f4f4f4;
+        --muted: #bdbdbd;
         --line: #f0e6d1;
         --success: #1ea76d;
         --shadow: 0 18px 38px rgba(22, 22, 22, 0.08);
@@ -25,7 +25,7 @@
       body {
         margin: 0;
         font-family: Arial, Helvetica, sans-serif;
-        background: linear-gradient(180deg, #fff8e7 0%, var(--bg) 100%);
+        background: var(--bg);
         color: var(--text);
       }
 
@@ -125,6 +125,7 @@
         gap: 18px;
         align-items: center;
         box-shadow: var(--shadow);
+        color: #161616;
       }
 
       .hero h1 {
@@ -194,6 +195,7 @@
       .section-head h2 {
         margin: 0;
         font-size: clamp(2rem, 3vw, 2.7rem);
+        color: white;
       }
 
       .section-head span {
@@ -210,6 +212,7 @@
 
       .product-card {
         background: var(--panel);
+        color: #161616;
         border: 1px solid var(--line);
         border-radius: 24px;
         overflow: hidden;
@@ -265,7 +268,7 @@
       .price {
         font-size: 1.75rem;
         font-weight: 900;
-        color: var(--text);
+        color: #161616;
       }
 
       .add-btn {
@@ -498,7 +501,7 @@
               </div>
               <div class="total-row">
                 <span>Total</span>
-                <strong id="totalPrice">$0.00</strong>
+                <strong id="totalPrice">₡0</strong>
               </div>
               <button class="checkout" id="checkoutBtn" type="button">Finalizar pedido</button>
             </div>
@@ -512,6 +515,12 @@
     <script>
       const SUPABASE_URL = "https://rqhdhaxynisxspdbfavr.supabase.co";
       const SUPABASE_ANON_KEY = "sb_publishable_bt3gDUOUZck2-YlyPUxntQ_7blm642d";
+      const USD_TO_CRC = 450;
+      const formatCRC = (amountInUsd) => new Intl.NumberFormat("es-CR", {
+        style: "currency",
+        currency: "CRC",
+        maximumFractionDigits: 0
+      }).format(amountInUsd * USD_TO_CRC);
 
       const fallbackProducts = [
         {
@@ -631,7 +640,7 @@
               <h3 class="product-name">${product.name}</h3>
               <p class="product-desc">${product.description}</p>
               <div class="product-row">
-                <span class="price">$${Number(product.price).toFixed(2)}</span>
+                <span class="price">${formatCRC(Number(product.price))}</span>
                 <button class="add-btn" type="button" data-id="${product.id}">Agregar</button>
               </div>
             </div>
@@ -660,7 +669,7 @@
         if (!cart.length) {
           cartItems.innerHTML = '<div class="empty-cart">Aún no agregas productos.</div>';
           cartCount.textContent = "0";
-          totalPrice.textContent = "$0.00";
+          totalPrice.textContent = formatCRC(0);
           itemQuantity.textContent = "0";
           return;
         }
@@ -680,17 +689,17 @@
 
         cartCount.textContent = totalItems;
         itemQuantity.textContent = totalItems;
-        totalPrice.textContent = `$${total.toFixed(2)}`;
+        totalPrice.textContent = formatCRC(total);
 
         cartItems.innerHTML = detailedCart.map((item) => `
           <div class="cart-item">
             <div>
               <strong>${item.name}</strong>
-              <small>$${Number(item.price).toFixed(2)} c/u</small>
+              <small>${formatCRC(Number(item.price))} c/u</small>
             </div>
             <div style="display:flex; align-items:center; gap:10px;">
               <span class="qty-badge">${item.quantity}</span>
-              <span style="font-weight:800;">$${item.total.toFixed(2)}</span>
+              <span style="font-weight:800;">${formatCRC(item.total)}</span>
               <button class="remove-btn" type="button" data-remove-id="${item.id}" aria-label="Eliminar ${item.name}">Eliminar</button>
             </div>
           </div>
