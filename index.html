@@ -478,6 +478,218 @@
             font-size: clamp(2rem, 3vw, 3rem);
         }
 
+        .section-note {
+            color: #d7d7d7;
+            font-weight: 700;
+        }
+
+        .discount-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .discount-card {
+            border-radius: 24px;
+            padding: 28px;
+            color: var(--black);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .discount-card-yellow { background: #fff1b5; }
+        .discount-card-red { background: #ffe2e2; }
+
+        .discount-value {
+            margin: 4px 0 8px;
+            color: var(--red);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .discount-card h3 {
+            margin: 0 0 12px;
+            font-size: 1.5rem;
+        }
+
+        .discount-card > p:not(.discount-value) {
+            line-height: 1.6;
+        }
+
+        .coupon-code {
+            display: inline-block;
+            border: 2px dashed var(--red);
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: var(--red-dark);
+            font-weight: 900;
+            letter-spacing: 0.08em;
+        }
+
+        .validity {
+            margin: 18px 0 0;
+            border-top: 1px solid rgba(17,17,17,0.15);
+            padding-top: 14px;
+            font-size: 0.92rem;
+        }
+
+        .feedback-panel {
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 28px;
+            background: white;
+            color: var(--black);
+            box-shadow: var(--shadow);
+        }
+
+        .feedback-form {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-field-full {
+            grid-column: 1 / -1;
+        }
+
+        .form-field label {
+            font-weight: 800;
+        }
+
+        .form-field label span,
+        .form-field small {
+            color: #666;
+            font-weight: 400;
+        }
+
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            width: 100%;
+            border: 1px solid #cfcfcf;
+            border-radius: 10px;
+            padding: 12px 14px;
+            background: #fff;
+            color: var(--black);
+            font: inherit;
+        }
+
+        .form-field textarea {
+            resize: vertical;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus,
+        .form-field textarea:focus {
+            outline: 3px solid rgba(215,38,56,0.2);
+            border-color: var(--red);
+        }
+
+        .feedback-form .btn {
+            justify-self: start;
+        }
+
+        .feedback-status {
+            align-self: center;
+            margin: 0;
+            color: var(--red-dark);
+            font-weight: 700;
+        }
+
+        .feedback-status-success {
+            color: #167447;
+        }
+
+        .local-storage-note {
+            margin: 18px 0 0;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .contact-card {
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 24px;
+            background: #fff;
+            color: var(--black);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-icon {
+            display: inline-grid;
+            width: 46px;
+            height: 46px;
+            place-items: center;
+            border-radius: 50%;
+            background: #fff1b5;
+            color: var(--red);
+            font-size: 1.4rem;
+        }
+
+        .contact-card h3 {
+            margin: 14px 0 8px;
+        }
+
+        .contact-card p {
+            overflow-wrap: anywhere;
+            margin: 0;
+        }
+
+        .contact-card a {
+            color: var(--red-dark);
+            font-weight: 700;
+        }
+
+        .fake-label {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .location-layout {
+            display: grid;
+            grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .location-details {
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 28px;
+            background: #fff;
+            color: var(--black);
+            box-shadow: var(--shadow);
+        }
+
+        .location-details h3 {
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        .location-details p {
+            line-height: 1.65;
+        }
+
+        .location-map {
+            width: 100%;
+            min-height: 340px;
+            border: 0;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
         footer {
             background: #111;
             color: #d7d7d7;
@@ -486,7 +698,11 @@
         }
 
         @media (max-width: 860px) {
-            .hero-inner, .promo-grid, .menu-grid {
+            .hero-inner, .promo-grid, .menu-grid, .contact-grid, .location-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .discount-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -508,6 +724,12 @@
 
         @media (max-width: 540px) {
             .hero { padding-top: 40px; }
+            .feedback-form {
+                grid-template-columns: 1fr;
+            }
+            .form-field-full {
+                grid-column: auto;
+            }
             .stats {
                 grid-template-columns: 1fr;
             }
@@ -521,6 +743,12 @@
                 flex-direction: column;
                 align-items: stretch;
             }
+            .feedback-panel {
+                padding: 20px;
+            }
+            .feedback-form .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -531,6 +759,10 @@
             <nav class="nav-links">
                 <a href="index.html" class="nav-link-btn">Inicio</a>
                 <a href="menu.html" class="nav-link-btn">Menú</a>
+                <a href="#descuentos" class="nav-link-btn">Descuentos</a>
+                <a href="#sugerencias" class="nav-link-btn">Sugerencias</a>
+                <a href="#contacto" class="nav-link-btn">Contacto</a>
+                <a href="#ubicacion" class="nav-link-btn">Ubicación</a>
                 <a href="login.html" class="nav-link-btn">Iniciar sesión</a>
             </nav>
         </div>
@@ -621,6 +853,31 @@
         </div>
     </section>
 
+    <section class="section container" id="descuentos">
+        <div class="section-header">
+            <h2>Descuentos y cupones</h2>
+            <span class="section-note">Ofertas publicadas para octubre</span>
+        </div>
+
+        <div class="discount-grid">
+            <article class="discount-card discount-card-yellow">
+                <span class="tag">Oferta especial</span>
+                <p class="discount-value">2x1</p>
+                <h3>Martes de hamburguesa</h3>
+                <p>Ordena una hamburguesa clásica y recibe otra igual sin costo adicional.</p>
+                <p class="validity"><strong>Vigencia:</strong> del 2 al 31 de octubre de 2026. Válido los martes.</p>
+            </article>
+            <article class="discount-card discount-card-red">
+                <span class="tag">Cupón</span>
+                <p class="discount-value">20% menos</p>
+                <h3>Un antojo con descuento</h3>
+                <p>Usa este código al ordenar cualquier combo individual.</p>
+                <p class="coupon-code">MATAPALO20</p>
+                <p class="validity"><strong>Vigencia:</strong> del 2 al 31 de octubre de 2026. Un uso por pedido.</p>
+            </article>
+        </div>
+    </section>
+
     <section class="section container">
         <div class="section-header">
             <h2>Explora nuestro menú</h2>
@@ -705,6 +962,83 @@
         </div>
     </section>
 
+    <section class="section container" id="sugerencias">
+        <div class="section-header">
+            <h2>Queremos escucharte</h2>
+            <span class="section-note">Comparte una opinión o una propuesta</span>
+        </div>
+        <div class="feedback-panel">
+            <form class="feedback-form" id="feedback-form">
+                <div class="form-field">
+                    <label for="feedback-name">Nombre <span>(opcional)</span></label>
+                    <input id="feedback-name" name="name" type="text" maxlength="80" autocomplete="name" placeholder="¿Cómo te llamas?">
+                </div>
+                <div class="form-field">
+                    <label for="feedback-type">¿Qué quieres compartir?</label>
+                    <select id="feedback-type" name="type" required>
+                        <option value="Opinión">Opinión</option>
+                        <option value="Propuesta">Propuesta</option>
+                    </select>
+                </div>
+                <div class="form-field form-field-full">
+                    <label for="feedback-message">Tu mensaje</label>
+                    <textarea id="feedback-message" name="message" rows="5" maxlength="1000" required placeholder="Cuéntanos cómo podemos mejorar..."></textarea>
+                    <small>Máximo 1000 caracteres.</small>
+                </div>
+                <button class="btn btn-primary" type="submit">Guardar sugerencia</button>
+                <p class="feedback-status" id="feedback-status" role="status" aria-live="polite"></p>
+            </form>
+            <p class="local-storage-note">Este formulario de demostración guarda tus comentarios solo en este navegador; no se envían al local.</p>
+        </div>
+    </section>
+
+    <section class="section container" id="contacto">
+        <div class="section-header">
+            <h2>Contacto</h2>
+            <span class="section-note">Datos de demostración, no corresponden a líneas reales</span>
+        </div>
+        <div class="contact-grid">
+            <article class="contact-card">
+                <span class="contact-icon" aria-hidden="true">☎</span>
+                <h3>Teléfono</h3>
+                <p>+506 0000-0000 <span class="fake-label">(ficticio)</span></p>
+            </article>
+            <article class="contact-card">
+                <span class="contact-icon" aria-hidden="true">✉</span>
+                <h3>Correo electrónico</h3>
+                <p><a href="mailto:hola@donpollo.example">hola@donpollo.example</a> <span class="fake-label">(ficticio)</span></p>
+            </article>
+            <article class="contact-card">
+                <span class="contact-icon" aria-hidden="true">◉</span>
+                <h3>WhatsApp</h3>
+                <p>+506 0000-0000 <span class="fake-label">(ficticio)</span></p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section container" id="ubicacion">
+        <div class="section-header">
+            <h2>Visítanos</h2>
+            <span class="section-note">Encuentra el local y planea tu visita</span>
+        </div>
+        <div class="location-layout">
+            <div class="location-details">
+                <h3>Don Pollo · Matapalo</h3>
+                <p><strong>Dirección</strong><br>Contiguo al Colegio Técnico Profesional de Matapalo, Costa Rica</p>
+                <p><strong>Horario</strong><br>Todos los días, de 7:00 a. m. a 12:00 a. m.</p>
+                <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&amp;query=Contiguo+al+Colegio+T%C3%A9cnico+Profesional+de+Matapalo%2C+Costa+Rica" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
+            </div>
+            <iframe
+                class="location-map"
+                title="Mapa de ubicación de Don Pollo, contiguo al Colegio Técnico Profesional de Matapalo"
+                src="https://maps.google.com/maps?q=Contiguo%20al%20Colegio%20T%C3%A9cnico%20Profesional%20de%20Matapalo%2C%20Costa%20Rica&amp;output=embed"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </section>
+
     <section class="section container" style="padding-top: 20px;">
         <div style="background: #fffaf2; border: 1px solid #f4d98d; border-radius: 20px; padding: 24px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
             <div>
@@ -726,13 +1060,15 @@
         const SUPABASE_URL = "https://rqhdhaxynisxspdbfavr.supabase.co";
         const SUPABASE_ANON_KEY = "TU_ANON_KEY_AQUI";
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
         async function testSupabaseConnection() {
             const statusEl = document.getElementById("supabase-status");
             const textEl = document.getElementById("supabase-status-text");
 
             try {
+                if (!window.supabase) {
+                    throw new Error("No se pudo cargar la librería de Supabase.");
+                }
+                const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 const { data, error } = await supabase.from("menu").select("id").limit(1);
 
                 if (error) {
@@ -748,6 +1084,38 @@
                 textEl.textContent = "Falta la clave anónima de Supabase o la tabla no existe aún.";
             }
         }
+
+        const feedbackForm = document.getElementById("feedback-form");
+        const feedbackStatus = document.getElementById("feedback-status");
+
+        feedbackForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            feedbackStatus.textContent = "";
+
+            const formData = new FormData(feedbackForm);
+            const suggestion = {
+                name: formData.get("name").trim(),
+                type: formData.get("type"),
+                message: formData.get("message").trim(),
+                createdAt: new Date().toISOString()
+            };
+
+            try {
+                const savedSuggestions = JSON.parse(localStorage.getItem("don-pollo-sugerencias") || "[]");
+                if (!Array.isArray(savedSuggestions)) {
+                    throw new Error("El formato de sugerencias guardadas no es válido.");
+                }
+                savedSuggestions.push(suggestion);
+                localStorage.setItem("don-pollo-sugerencias", JSON.stringify(savedSuggestions));
+                feedbackForm.reset();
+                feedbackStatus.textContent = "Tu comentario quedó guardado en este navegador.";
+                feedbackStatus.classList.add("feedback-status-success");
+            } catch (error) {
+                console.error("No se pudo guardar la sugerencia en este navegador.", error);
+                feedbackStatus.textContent = "No se pudo guardar el comentario. Revisa la configuración de almacenamiento del navegador e inténtalo de nuevo.";
+                feedbackStatus.classList.remove("feedback-status-success");
+            }
+        });
 
         document.addEventListener("DOMContentLoaded", testSupabaseConnection);
     </script>
